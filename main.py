@@ -12,7 +12,7 @@ app = FastAPI()
 @app.get("/records", response_model=List[CompaniesSchema])
 async def get_records(db: Database = Depends(get_db)):
     try:
-        return await db.get_collection("companies").find().to_list(length=100)
+        return await db.get_collection("companies").find(limit=100).to_list(length=100)
     except Exception as e:
         print(e)
         return HTTPException(
